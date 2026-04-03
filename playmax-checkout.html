@@ -108,9 +108,60 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);min-h
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
 @media(max-width:540px){
-  .plan-box{flex-direction:column;text-align:center}
-  .copy-row{flex-direction:column;text-align:center}
+  .page{padding:16px;justify-content:flex-start;padding-top:24px}
+  .back{margin-bottom:20px;font-size:.84rem}
+  
+  .checkout{border-radius:14px}
+  .checkout-header{padding:24px 20px 0}
+  .checkout-header .logo{font-size:1.15rem;margin-bottom:18px}
+  
+  .steps{margin-bottom:22px;gap:0}
+  .step{font-size:.72rem;gap:5px}
+  .step .num{width:24px;height:24px;font-size:.68rem}
   .step-line{width:20px}
+  
+  .plan-box{margin:0 20px;padding:16px;flex-direction:column;text-align:center;gap:10px}
+  .plan-box .info h3{font-size:1rem}
+  .plan-box .info span{font-size:.78rem}
+  .plan-box .val{font-size:1.6rem}
+  .plan-box .val small{font-size:.7rem}
+  
+  .feat-mini{margin:16px 20px 0;gap:6px;justify-content:center}
+  .feat-mini span{font-size:.72rem;padding:5px 10px}
+  
+  .divider{margin:22px 20px}
+  
+  .pix-section{padding:0 20px}
+  .pix-title{font-size:.92rem}
+  .pix-sub{font-size:.8rem;margin-bottom:18px}
+  
+  .qr-container{padding:12px;border-radius:10px}
+  .qr-container canvas{width:180px!important;height:180px!important}
+  
+  .copy-row{flex-direction:column;text-align:center;padding:12px 14px;gap:10px}
+  .copy-row .key{font-size:.8rem;word-break:break-all;white-space:normal}
+  .copy-row .key strong{font-size:.68rem}
+  .copy-btn{width:100%;padding:10px 16px}
+  
+  .timer-row{padding:10px;margin:14px 0 0}
+  .timer-row span{font-size:.8rem}
+  
+  .actions{padding:22px 20px 28px;gap:10px}
+  .btn-wa{padding:15px;font-size:.92rem;gap:8px}
+  .btn-secondary{padding:12px;font-size:.82rem}
+  .secure{font-size:.7rem;margin-top:4px}
+  
+  .no-plan{padding:48px 20px}
+  .no-plan h2{font-size:1.2rem}
+  .no-plan p{font-size:.88rem}
+}
+
+@media(max-width:380px){
+  .plan-box .val{font-size:1.4rem}
+  .qr-container canvas{width:160px!important;height:160px!important}
+  .step span{display:none}
+  .step .num{width:28px;height:28px}
+  .step-line{width:30px}
 }
 </style>
 </head>
@@ -277,10 +328,12 @@ function render() {
   `;
 
   // Generate QR Code
+  // Generate QR Code (responsive size)
+  const qrSize = window.innerWidth <= 380 ? 160 : window.innerWidth <= 540 ? 180 : 220;
   new QRCode(document.getElementById('qrcode'), {
     text: brcode,
-    width: 220,
-    height: 220,
+    width: qrSize,
+    height: qrSize,
     colorDark: '#000000',
     colorLight: '#ffffff',
     correctLevel: QRCode.CorrectLevel.M,
