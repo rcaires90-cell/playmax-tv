@@ -12,7 +12,7 @@
 :root{
   --bg:#06060a;--bg2:#0d0d14;--bg3:#12121c;
   --accent:#00e87b;--accent-g:rgba(0,232,123,.12);
-  --purple:#7c5cfc;--pink:#ff6b9d;
+  --purple:#7c5cfc;--pink:#ff6b9d;--orange:#ff9f43;
   --txt:#f0f0f5;--txt2:#8888a0;--txt3:#55556a;
   --border:rgba(255,255,255,.06);
   --grad:linear-gradient(135deg,#00e87b 0%,#7c5cfc 50%,#ff6b9d 100%);
@@ -25,143 +25,189 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);min-h
   background:radial-gradient(circle at 30% 30%,rgba(0,232,123,.03)0%,transparent 50%),
   radial-gradient(circle at 70% 70%,rgba(124,92,252,.03)0%,transparent 50%)}
 
-.page{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
+.page{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px;padding-top:24px}
 
-/* BACK LINK */
-.back{display:inline-flex;align-items:center;gap:8px;color:var(--txt2);text-decoration:none;font-size:.9rem;font-weight:500;margin-bottom:32px;transition:color .3s;align-self:flex-start;max-width:520px;width:100%}
+.back{display:inline-flex;align-items:center;gap:8px;color:var(--txt2);text-decoration:none;font-size:.88rem;font-weight:500;margin-bottom:20px;transition:color .3s;align-self:flex-start;max-width:520px;width:100%}
 .back:hover{color:var(--txt)}
 
 /* CHECKOUT CARD */
-.checkout{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);width:100%;max-width:520px;overflow:hidden;animation:fadeUp .6s ease}
+.checkout{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);width:100%;max-width:520px;overflow:hidden;animation:fadeUp .5s ease}
 
-.checkout-header{padding:32px 32px 0;text-align:center}
-.checkout-header .logo{font-family:'Sora',sans-serif;font-weight:700;font-size:1.3rem;margin-bottom:24px}
+.checkout-header{padding:28px 28px 0;text-align:center}
+.checkout-header .logo{font-family:'Sora',sans-serif;font-weight:700;font-size:1.25rem;margin-bottom:20px}
 .checkout-header .logo em{font-style:normal;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 
-/* PLAN SUMMARY */
-.plan-box{margin:0 32px;padding:20px;background:rgba(0,232,123,.04);border:1px solid rgba(0,232,123,.15);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.plan-box .info h3{font-size:1.1rem;font-weight:700;margin-bottom:2px}
-.plan-box .info span{font-size:.82rem;color:var(--txt2)}
-.plan-box .val{font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:700;color:var(--accent);white-space:nowrap}
-.plan-box .val small{font-size:.75rem;color:var(--txt2);font-weight:400}
-
-/* FEATURES MINI */
-.feat-mini{margin:20px 32px 0;display:flex;flex-wrap:wrap;gap:8px}
-.feat-mini span{padding:6px 14px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:100px;font-size:.78rem;color:var(--txt2);font-weight:500}
-
-/* DIVIDER */
-.divider{height:1px;background:var(--border);margin:28px 32px}
-
-/* PIX SECTION */
-.pix-section{padding:0 32px;text-align:center}
-.pix-title{font-size:1rem;font-weight:600;margin-bottom:4px}
-.pix-sub{font-size:.85rem;color:var(--txt2);margin-bottom:24px}
-
-.qr-container{display:inline-block;background:#fff;padding:16px;border-radius:12px;margin-bottom:20px;position:relative}
-.qr-container canvas{display:block!important}
-
-/* COPY KEY */
-.copy-row{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:12px}
-.copy-row .key{flex:1;font-size:.88rem;color:var(--txt2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}
-.copy-row .key strong{color:var(--txt);font-weight:600;display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px}
-.copy-btn{padding:10px 20px;background:var(--accent);color:#000;font-weight:600;font-size:.82rem;border-radius:100px;border:none;cursor:pointer;font-family:inherit;transition:all .3s;white-space:nowrap}
-.copy-btn:hover{box-shadow:0 4px 16px rgba(0,232,123,.3)}
-.copy-btn.copied{background:#7c5cfc;color:#fff}
-
-/* TIMER */
-.timer-row{display:flex;align-items:center;justify-content:center;gap:8px;margin:16px 0 0;padding:12px;background:rgba(255,107,157,.06);border:1px solid rgba(255,107,157,.15);border-radius:10px}
-.timer-row .dot{width:8px;height:8px;border-radius:50%;background:#ff6b9d;animation:pulse 1.5s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.timer-row span{font-size:.85rem;color:#ff6b9d;font-weight:500}
-
-/* ACTIONS */
-.actions{padding:28px 32px 32px;display:flex;flex-direction:column;gap:10px}
-
-.btn-wa{display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;background:#25d366;color:#fff;font-weight:700;font-size:1rem;border-radius:100px;text-decoration:none;transition:all .3s;border:none;cursor:pointer;font-family:inherit;width:100%}
-.btn-wa:hover{box-shadow:0 8px 28px rgba(37,211,102,.3);transform:translateY(-1px)}
-
-.btn-secondary{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;background:rgba(255,255,255,.04);color:var(--txt2);font-weight:500;font-size:.88rem;border-radius:100px;text-decoration:none;transition:all .3s;border:1px solid var(--border)}
-.btn-secondary:hover{background:rgba(255,255,255,.07);color:var(--txt)}
-
-/* SECURE BADGE */
-.secure{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px;font-size:.75rem;color:var(--txt3)}
-
-/* STEPS INDICATOR */
-.steps{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:28px}
-.step{display:flex;align-items:center;gap:8px;font-size:.8rem;font-weight:500}
-.step .num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700}
+/* STEPS */
+.steps{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:24px}
+.step{display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:500}
+.step .num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;transition:all .3s}
 .step.active .num{background:var(--accent);color:#000}
 .step.done .num{background:rgba(0,232,123,.15);color:var(--accent)}
 .step.pending .num{background:rgba(255,255,255,.05);color:var(--txt3)}
 .step.active span{color:var(--txt)}
 .step.done span{color:var(--accent)}
 .step.pending span{color:var(--txt3)}
-.step-line{width:40px;height:1px;background:var(--border);margin:0 4px}
+.step-line{width:28px;height:1px;background:var(--border);margin:0 4px}
+
+/* PLAN BOX */
+.plan-box{margin:0 24px;padding:16px;background:rgba(0,232,123,.04);border:1px solid rgba(0,232,123,.15);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.plan-box .info h3{font-size:1.05rem;font-weight:700;margin-bottom:2px}
+.plan-box .info span{font-size:.78rem;color:var(--txt2)}
+.plan-box .val{font-family:'Sora',sans-serif;font-size:1.6rem;font-weight:700;color:var(--accent);white-space:nowrap}
+.plan-box .val small{font-size:.7rem;color:var(--txt2);font-weight:400}
+
+.divider{height:1px;background:var(--border);margin:24px}
+
+/* SECTION INSIDE CHECKOUT */
+.section-pad{padding:0 24px}
+.sec-h{font-size:1rem;font-weight:600;margin-bottom:4px}
+.sec-p{font-size:.82rem;color:var(--txt2);margin-bottom:16px}
+
+/* DEVICE SELECTION */
+.device-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.device-opt{padding:16px 12px;background:rgba(255,255,255,.03);border:1.5px solid var(--border);border-radius:12px;text-align:center;cursor:pointer;transition:all .3s}
+.device-opt:hover{border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.05)}
+.device-opt.selected{border-color:var(--accent);background:rgba(0,232,123,.06)}
+.device-opt .ico{font-size:1.8rem;margin-bottom:6px}
+.device-opt .name{font-size:.85rem;font-weight:600}
+.device-opt .desc{font-size:.7rem;color:var(--txt3);margin-top:2px}
+
+/* BRAND SELECTION */
+.brand-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.brand-opt{padding:12px 8px;background:rgba(255,255,255,.03);border:1.5px solid var(--border);border-radius:10px;text-align:center;cursor:pointer;transition:all .3s;font-size:.82rem;font-weight:500}
+.brand-opt:hover{border-color:rgba(255,255,255,.15)}
+.brand-opt.selected{border-color:var(--accent);background:rgba(0,232,123,.06);color:var(--accent)}
+
+/* UPSELL BOX */
+.upsell{margin:16px 0;padding:18px;background:linear-gradient(135deg,rgba(255,159,67,.06),rgba(255,107,157,.06));border:1.5px solid rgba(255,159,67,.2);border-radius:12px;position:relative;overflow:hidden}
+.upsell::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff9f43,#ff6b9d)}
+.upsell .upsell-badge{display:inline-block;padding:4px 12px;background:var(--orange);color:#000;font-size:.68rem;font-weight:700;border-radius:100px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.upsell h4{font-size:1rem;font-weight:700;margin-bottom:4px}
+.upsell p{font-size:.82rem;color:var(--txt2);line-height:1.5;margin-bottom:12px}
+.upsell .upsell-price{font-family:'Sora',sans-serif;font-size:1.5rem;font-weight:700;color:var(--orange);margin-bottom:4px}
+.upsell .upsell-price small{font-size:.75rem;color:var(--txt2);font-weight:400}
+.upsell .upsell-detail{font-size:.75rem;color:var(--txt3);margin-bottom:14px}
+.upsell .upsell-features{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.upsell .upsell-features span{font-size:.78rem;color:var(--txt2);display:flex;align-items:center;gap:6px}
+.upsell .upsell-features span::before{content:'✓';color:var(--orange);font-weight:700}
+.upsell-btns{display:flex;gap:8px}
+.upsell-btn{flex:1;padding:12px;border-radius:100px;font-family:inherit;font-weight:600;font-size:.82rem;cursor:pointer;transition:all .3s;border:none;text-align:center}
+.upsell-btn.yes{background:var(--orange);color:#000}
+.upsell-btn.yes:hover{box-shadow:0 4px 16px rgba(255,159,67,.3)}
+.upsell-btn.no{background:rgba(255,255,255,.05);color:var(--txt2);border:1px solid var(--border)}
+.upsell-btn.no:hover{background:rgba(255,255,255,.08)}
+
+/* DELIVERY OPTIONS */
+.delivery-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 16px}
+.delivery-opt{padding:14px 12px;background:rgba(255,255,255,.03);border:1.5px solid var(--border);border-radius:10px;text-align:center;cursor:pointer;transition:all .3s}
+.delivery-opt:hover{border-color:rgba(255,255,255,.15)}
+.delivery-opt.selected{border-color:var(--orange);background:rgba(255,159,67,.06)}
+.delivery-opt .ico{font-size:1.5rem;margin-bottom:4px}
+.delivery-opt .name{font-size:.82rem;font-weight:600}
+.delivery-opt .desc{font-size:.7rem;color:var(--txt3);margin-top:2px}
+
+/* ADDRESS INPUT */
+.input-group{margin-bottom:12px}
+.input-group label{display:block;font-size:.75rem;font-weight:600;color:var(--txt2);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px}
+.input-group input,.input-group textarea{width:100%;padding:12px 14px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;color:var(--txt);font-family:inherit;font-size:.88rem;outline:none;transition:border-color .3s}
+.input-group input:focus,.input-group textarea:focus{border-color:var(--accent)}
+.input-group textarea{resize:vertical;min-height:60px}
+.input-group input::placeholder,.input-group textarea::placeholder{color:var(--txt3)}
+
+/* CONTINUE BTN */
+.btn-continue{display:block;width:100%;padding:15px;border-radius:100px;text-align:center;font-weight:600;font-size:.93rem;cursor:pointer;transition:all .3s;border:none;font-family:inherit;background:var(--accent);color:#000;margin-top:8px}
+.btn-continue:hover{box-shadow:0 8px 28px rgba(0,232,123,.3);transform:translateY(-1px)}
+.btn-continue:disabled{opacity:.4;pointer-events:none}
+
+/* PIX */
+.pix-section{text-align:center}
+.pix-title{font-size:1rem;font-weight:600;margin-bottom:4px}
+.pix-sub{font-size:.82rem;color:var(--txt2);margin-bottom:20px}
+.qr-container{display:inline-block;background:#fff;padding:14px;border-radius:12px;margin-bottom:16px}
+.qr-container canvas{display:block!important}
+
+.copy-row{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:10px}
+.copy-row .key{flex:1;font-size:.82rem;color:var(--txt2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}
+.copy-row .key strong{color:var(--txt);font-weight:600;display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px}
+.copy-btn{padding:10px 18px;background:var(--accent);color:#000;font-weight:600;font-size:.8rem;border-radius:100px;border:none;cursor:pointer;font-family:inherit;transition:all .3s;white-space:nowrap}
+.copy-btn:hover{box-shadow:0 4px 16px rgba(0,232,123,.3)}
+.copy-btn.copied{background:var(--purple);color:#fff}
+
+/* TOTAL BOX */
+.total-box{margin:0 24px 16px;padding:16px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px}
+.total-line{display:flex;justify-content:space-between;align-items:center;font-size:.88rem;margin-bottom:6px}
+.total-line.sub{color:var(--txt2);font-size:.82rem}
+.total-line.grand{font-weight:700;font-size:1.1rem;padding-top:10px;border-top:1px solid var(--border);margin-top:6px;margin-bottom:0}
+.total-line.grand .v{color:var(--accent);font-family:'Sora',sans-serif}
+
+/* TIMER */
+.timer-row{display:flex;align-items:center;justify-content:center;gap:8px;margin:14px 0 0;padding:10px;background:rgba(255,107,157,.06);border:1px solid rgba(255,107,157,.15);border-radius:10px}
+.timer-row .dot{width:8px;height:8px;border-radius:50%;background:#ff6b9d;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.timer-row span{font-size:.82rem;color:#ff6b9d;font-weight:500}
+
+/* ACTIONS */
+.actions{padding:24px 24px 28px;display:flex;flex-direction:column;gap:10px}
+.btn-wa{display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;background:#25d366;color:#fff;font-weight:700;font-size:.95rem;border-radius:100px;text-decoration:none;transition:all .3s;border:none;cursor:pointer;font-family:inherit;width:100%}
+.btn-wa:hover{box-shadow:0 8px 28px rgba(37,211,102,.3);transform:translateY(-1px)}
+.btn-secondary{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;background:rgba(255,255,255,.04);color:var(--txt2);font-weight:500;font-size:.85rem;border-radius:100px;text-decoration:none;transition:all .3s;border:1px solid var(--border)}
+.btn-secondary:hover{background:rgba(255,255,255,.07);color:var(--txt)}
+.secure{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:4px;font-size:.72rem;color:var(--txt3)}
 
 /* NO PLAN */
-.no-plan{text-align:center;padding:60px 32px}
-.no-plan h2{font-family:'Sora',sans-serif;font-size:1.4rem;margin-bottom:12px}
-.no-plan p{color:var(--txt2);margin-bottom:28px;font-size:.95rem}
-.no-plan a{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:var(--accent);color:#000;font-weight:600;border-radius:100px;text-decoration:none;transition:all .3s}
-.no-plan a:hover{box-shadow:0 8px 28px rgba(0,232,123,.3)}
+.no-plan{text-align:center;padding:60px 28px}
+.no-plan h2{font-family:'Sora',sans-serif;font-size:1.3rem;margin-bottom:10px}
+.no-plan p{color:var(--txt2);margin-bottom:24px;font-size:.92rem}
+.no-plan a{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--accent);color:#000;font-weight:600;border-radius:100px;text-decoration:none}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+/* HIDDEN STEPS */
+.checkout-step{display:none}
+.checkout-step.active{display:block}
 
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp .4s ease}
+
+/* MOBILE */
 @media(max-width:540px){
-  .page{padding:16px;justify-content:flex-start;padding-top:24px}
-  .back{margin-bottom:20px;font-size:.84rem}
-  
+  .page{padding:16px;padding-top:20px}
+  .back{margin-bottom:16px;font-size:.82rem}
   .checkout{border-radius:14px}
-  .checkout-header{padding:24px 20px 0}
-  .checkout-header .logo{font-size:1.15rem;margin-bottom:18px}
-  
-  .steps{margin-bottom:22px;gap:0}
-  .step{font-size:.72rem;gap:5px}
-  .step .num{width:24px;height:24px;font-size:.68rem}
-  .step-line{width:20px}
-  
-  .plan-box{margin:0 20px;padding:16px;flex-direction:column;text-align:center;gap:10px}
-  .plan-box .info h3{font-size:1rem}
-  .plan-box .info span{font-size:.78rem}
-  .plan-box .val{font-size:1.6rem}
-  .plan-box .val small{font-size:.7rem}
-  
-  .feat-mini{margin:16px 20px 0;gap:6px;justify-content:center}
-  .feat-mini span{font-size:.72rem;padding:5px 10px}
-  
-  .divider{margin:22px 20px}
-  
-  .pix-section{padding:0 20px}
-  .pix-title{font-size:.92rem}
-  .pix-sub{font-size:.8rem;margin-bottom:18px}
-  
-  .qr-container{padding:12px;border-radius:10px}
-  .qr-container canvas{width:180px!important;height:180px!important}
-  
-  .copy-row{flex-direction:column;text-align:center;padding:12px 14px;gap:10px}
-  .copy-row .key{font-size:.8rem;word-break:break-all;white-space:normal}
-  .copy-row .key strong{font-size:.68rem}
-  .copy-btn{width:100%;padding:10px 16px}
-  
-  .timer-row{padding:10px;margin:14px 0 0}
-  .timer-row span{font-size:.8rem}
-  
-  .actions{padding:22px 20px 28px;gap:10px}
-  .btn-wa{padding:15px;font-size:.92rem;gap:8px}
-  .btn-secondary{padding:12px;font-size:.82rem}
-  .secure{font-size:.7rem;margin-top:4px}
-  
-  .no-plan{padding:48px 20px}
-  .no-plan h2{font-size:1.2rem}
-  .no-plan p{font-size:.88rem}
-}
-
-@media(max-width:380px){
+  .checkout-header{padding:22px 18px 0}
+  .checkout-header .logo{font-size:1.1rem;margin-bottom:16px}
+  .steps{margin-bottom:20px}
+  .step{font-size:.7rem;gap:4px}
+  .step .num{width:24px;height:24px;font-size:.65rem}
+  .step-line{width:18px}
+  .plan-box{margin:0 18px;padding:14px;flex-direction:column;text-align:center;gap:8px}
   .plan-box .val{font-size:1.4rem}
-  .qr-container canvas{width:160px!important;height:160px!important}
+  .divider{margin:20px 18px}
+  .section-pad{padding:0 18px}
+  .device-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .device-opt{padding:14px 10px}
+  .device-opt .ico{font-size:1.5rem}
+  .device-opt .name{font-size:.8rem}
+  .brand-grid{grid-template-columns:repeat(3,1fr);gap:6px}
+  .brand-opt{padding:10px 6px;font-size:.76rem}
+  .upsell{margin:14px 0;padding:16px}
+  .upsell h4{font-size:.92rem}
+  .upsell .upsell-price{font-size:1.3rem}
+  .upsell-btns{flex-direction:column}
+  .delivery-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .total-box{margin:0 18px 14px}
+  .pix-section{padding:0 18px}
+  .qr-container canvas{width:180px!important;height:180px!important}
+  .copy-row{flex-direction:column;text-align:center;gap:8px}
+  .copy-row .key{white-space:normal;word-break:break-all}
+  .copy-btn{width:100%}
+  .actions{padding:20px 18px 24px}
+  .btn-wa{padding:14px;font-size:.9rem}
+}
+@media(max-width:380px){
   .step span{display:none}
-  .step .num{width:28px;height:28px}
-  .step-line{width:30px}
+  .step-line{width:24px}
+  .qr-container canvas{width:160px!important;height:160px!important}
+  .device-grid{grid-template-columns:1fr 1fr}
+  .brand-grid{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
@@ -170,10 +216,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);min-h
 
 <div class="page">
   <a href="playmax-tv-landing.html" class="back">← Voltar aos planos</a>
-
-  <div class="checkout" id="checkout">
-    <!-- Content injected by JS -->
-  </div>
+  <div class="checkout" id="checkout"></div>
 </div>
 
 <script>
@@ -182,197 +225,329 @@ const PIX_KEY = 'rcaires90@gmail.com';
 const PIX_NAME = 'PLAYMAX TV';
 const PIX_CITY = 'SAO PAULO';
 const WHATSAPP = '5511914164272';
+const TVBOX_PRICE = 189.99;
 
 const PLANS = {
-  basico: {
-    name: 'Básico',
-    price: 59.90,
-    screens: '1 tela',
-    features: ['Canais ao vivo', 'Canais 24H', 'Suporte WhatsApp'],
-  },
-  premium: {
-    name: 'Premium',
-    price: 89.90,
-    screens: '2 telas',
-    features: ['Todos os canais', 'Filmes & Séries', 'Novelas', 'Suporte prioritário'],
-    popular: true,
-  },
-  familia: {
-    name: 'Família',
-    price: 119.90,
-    screens: '3 telas',
-    features: ['Tudo do Premium', 'Conteúdo adulto', 'Suporte VIP 24h'],
-  }
+  basico:  { name:'Básico',  price:59.90,  screens:'1 tela', features:['Canais ao vivo','Canais 24H','Suporte WhatsApp'] },
+  premium: { name:'Premium', price:89.90,  screens:'2 telas', features:['Todos os canais','Filmes & Séries','Novelas','Suporte prioritário'], popular:true },
+  familia: { name:'Família', price:119.90, screens:'3 telas', features:['Tudo do Premium','Conteúdo adulto','Suporte VIP 24h'] }
 };
 
-// ====== PIX BR CODE GENERATOR ======
-function pixBRCode(key, name, city, amount, txid = '***') {
-  const f = (id, val) => id + String(val.length).padStart(2, '0') + val;
+const BRANDS = {
+  smarttv: ['Samsung','LG','TCL','Philips','AOC','Philco','Toshiba','Outra'],
+  tvbox: ['MXQ Pro','HTV','BTV','X96','TX9','Mi Box','Fire Stick','Outra'],
+};
 
-  // Merchant Account Information (Pix)
-  const gui = f('00', 'br.gov.bcb.pix');
+// ====== STATE ======
+let state = {
+  plan: null,
+  device: null,
+  brand: null,
+  wantsTvbox: false,
+  delivery: null,
+  address: '',
+  name: '',
+  currentStep: 1
+};
+
+// ====== PIX BR CODE ======
+function pixBRCode(key, name, city, amount) {
+  const f = (id, val) => id + String(val.length).padStart(2,'0') + val;
+  const gui = f('00','br.gov.bcb.pix');
   const chave = f('01', key);
   const mai = f('26', gui + chave);
-
-  // Build payload without CRC
-  let payload = '';
-  payload += f('00', '01');                         // Payload Format
-  payload += mai;                                    // Merchant Account
-  payload += f('52', '0000');                        // MCC
-  payload += f('53', '986');                         // Currency (BRL)
-  payload += f('54', amount.toFixed(2));             // Amount
-  payload += f('58', 'BR');                          // Country
-  payload += f('59', name.substring(0, 25));         // Merchant Name
-  payload += f('60', city.substring(0, 15));         // City
-  payload += f('62', f('05', txid));                 // Additional Data
-  payload += '6304';                                 // CRC placeholder
-
-  // CRC16-CCITT
+  let p = '';
+  p += f('00','01');
+  p += mai;
+  p += f('52','0000');
+  p += f('53','986');
+  p += f('54', amount.toFixed(2));
+  p += f('58','BR');
+  p += f('59', name.substring(0,25));
+  p += f('60', city.substring(0,15));
+  p += f('62', f('05','***'));
+  p += '6304';
   let crc = 0xFFFF;
-  for (let i = 0; i < payload.length; i++) {
-    crc ^= payload.charCodeAt(i) << 8;
-    for (let j = 0; j < 8; j++) {
-      crc = (crc & 0x8000) ? (crc << 1) ^ 0x1021 : crc << 1;
-      crc &= 0xFFFF;
-    }
+  for (let i = 0; i < p.length; i++) {
+    crc ^= p.charCodeAt(i) << 8;
+    for (let j = 0; j < 8; j++) { crc = (crc & 0x8000) ? (crc << 1) ^ 0x1021 : crc << 1; crc &= 0xFFFF; }
   }
-  return payload + crc.toString(16).toUpperCase().padStart(4, '0');
+  return p + crc.toString(16).toUpperCase().padStart(4,'0');
 }
 
-// ====== RENDER ======
-function render() {
-  const params = new URLSearchParams(window.location.search);
-  const planKey = params.get('plano');
-  const container = document.getElementById('checkout');
+// ====== STEP RENDERING ======
+function getStepsHTML(activeStep) {
+  const labels = ['Plano','Aparelho','Pagamento','Ativação'];
+  return `<div class="steps">${labels.map((l,i) => {
+    const n = i + 1;
+    const cls = n < activeStep ? 'done' : n === activeStep ? 'active' : 'pending';
+    const num = n < activeStep ? '✓' : n;
+    return `<div class="step ${cls}"><span class="num">${num}</span><span>${l}</span></div>${i<3?'<div class="step-line"></div>':''}`;
+  }).join('')}</div>`;
+}
 
-  if (!planKey || !PLANS[planKey]) {
-    container.innerHTML = `
-      <div class="no-plan">
-        <h2>Nenhum plano selecionado</h2>
-        <p>Volte e escolha o plano ideal pra você.</p>
-        <a href="playmax-tv-landing.html">Ver Planos</a>
-      </div>`;
-    return;
-  }
+function getPlanBoxHTML(plan) {
+  return `<div class="plan-box">
+    <div class="info"><h3>Plano ${plan.name}</h3><span>${plan.screens} • Mensal</span></div>
+    <div class="val">R$${plan.price.toFixed(2).replace('.',',')}<small>/mês</small></div>
+  </div>`;
+}
 
-  const plan = PLANS[planKey];
-  const brcode = pixBRCode(PIX_KEY, PIX_NAME, PIX_CITY, plan.price);
-  const priceFormatted = plan.price.toFixed(2).replace('.', ',');
-
-  const featTags = plan.features.map(f => `<span>${f}</span>`).join('');
-
-  const waMsg = encodeURIComponent(
-    `Olá! Acabei de fazer o Pix de R$${priceFormatted} para o plano ${plan.name} (${plan.screens}) da PlayMax TV. Pode ativar minha lista?`
-  );
-
-  container.innerHTML = `
+// ====== STEP 2: DEVICE SELECTION ======
+function renderStep2() {
+  state.currentStep = 2;
+  const plan = state.plan;
+  const c = document.getElementById('checkout');
+  c.innerHTML = `
     <div class="checkout-header">
       <div class="logo"><em>PlayMax</em> TV</div>
-      <div class="steps">
-        <div class="step done"><span class="num">✓</span><span>Plano</span></div>
-        <div class="step-line"></div>
-        <div class="step active"><span class="num">2</span><span>Pagamento</span></div>
-        <div class="step-line"></div>
-        <div class="step pending"><span class="num">3</span><span>Ativação</span></div>
-      </div>
+      ${getStepsHTML(2)}
     </div>
-
-    <div class="plan-box">
-      <div class="info">
-        <h3>Plano ${plan.name}</h3>
-        <span>${plan.screens} simultânea${plan.screens !== '1 tela' ? 's' : ''} • Mensal</span>
+    ${getPlanBoxHTML(plan)}
+    <div class="divider"></div>
+    <div class="section-pad fade-in">
+      <div class="sec-h">Onde você vai assistir?</div>
+      <div class="sec-p">Selecione o aparelho principal</div>
+      <div class="device-grid">
+        <div class="device-opt" onclick="selectDevice('smarttv',this)">
+          <div class="ico">📺</div>
+          <div class="name">Smart TV</div>
+          <div class="desc">TV com internet</div>
+        </div>
+        <div class="device-opt" onclick="selectDevice('tvbox',this)">
+          <div class="ico">📦</div>
+          <div class="name">TV Box</div>
+          <div class="desc">Aparelho externo</div>
+        </div>
+        <div class="device-opt" onclick="selectDevice('celular',this)">
+          <div class="ico">📱</div>
+          <div class="name">Celular</div>
+          <div class="desc">Android ou iPhone</div>
+        </div>
+        <div class="device-opt" onclick="selectDevice('computador',this)">
+          <div class="ico">💻</div>
+          <div class="name">Computador</div>
+          <div class="desc">PC ou Notebook</div>
+        </div>
       </div>
-      <div class="val">R$${priceFormatted}<small>/mês</small></div>
+      <div id="brandSection"></div>
+      <div id="upsellSection"></div>
+      <button class="btn-continue" id="btnStep2" disabled onclick="goToStep3()">Continuar para pagamento →</button>
     </div>
+    <div style="padding:0 24px 24px"><a href="playmax-tv-landing.html" class="btn-secondary" style="margin-top:8px">← Trocar de plano</a></div>
+  `;
+}
 
-    <div class="feat-mini">${featTags}</div>
+function selectDevice(type, el) {
+  document.querySelectorAll('.device-opt').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  state.device = type;
+  state.brand = null;
+  state.wantsTvbox = false;
+
+  const brandSection = document.getElementById('brandSection');
+  const upsellSection = document.getElementById('upsellSection');
+  upsellSection.innerHTML = '';
+
+  if (type === 'smarttv') {
+    brandSection.innerHTML = `
+      <div class="sec-h" style="margin-top:16px">Qual a marca da sua TV?</div>
+      <div class="brand-grid">${BRANDS.smarttv.map(b => `<div class="brand-opt" onclick="selectBrand('${b}',this)">${b}</div>`).join('')}</div>`;
+    document.getElementById('btnStep2').disabled = true;
+  } else if (type === 'tvbox') {
+    brandSection.innerHTML = `
+      <div class="sec-h" style="margin-top:16px">Qual TV Box você usa?</div>
+      <div class="brand-grid">
+        ${BRANDS.tvbox.map(b => `<div class="brand-opt" onclick="selectBrand('${b}',this)">${b}</div>`).join('')}
+        <div class="brand-opt" style="border-color:rgba(255,159,67,.3);color:var(--orange)" onclick="showTvboxUpsell(this)">🛒 Não tenho</div>
+      </div>`;
+    document.getElementById('btnStep2').disabled = true;
+  } else {
+    brandSection.innerHTML = '';
+    state.brand = type;
+    document.getElementById('btnStep2').disabled = false;
+  }
+}
+
+function selectBrand(brand, el) {
+  document.querySelectorAll('.brand-opt').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  state.brand = brand;
+  state.wantsTvbox = false;
+  document.getElementById('upsellSection').innerHTML = '';
+  document.getElementById('btnStep2').disabled = false;
+}
+
+function showTvboxUpsell(el) {
+  document.querySelectorAll('.brand-opt').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  state.brand = 'TV Box PlayMax';
+
+  document.getElementById('upsellSection').innerHTML = `
+    <div class="upsell fade-in">
+      <div class="upsell-badge">Oferta especial</div>
+      <h4>📦 TV Box PlayMax — Já configurada!</h4>
+      <p>Receba uma TV Box pronta pra uso, já com o app instalado e sua lista ativada. É só ligar na TV e assistir!</p>
+      <div class="upsell-price">R$189,99 <small>pagamento único</small></div>
+      <div class="upsell-detail">+ valor do plano mensal</div>
+      <div class="upsell-features">
+        <span>TV Box com app já instalado</span>
+        <span>Lista pré-configurada</span>
+        <span>Controle remoto incluso</span>
+        <span>Envio pelos Correios ou entrega pessoal</span>
+      </div>
+      <div class="upsell-btns">
+        <button class="upsell-btn yes" onclick="acceptTvbox()">Quero a TV Box!</button>
+        <button class="upsell-btn no" onclick="declineTvbox()">Só o plano, obrigado</button>
+      </div>
+      <div id="deliverySection"></div>
+    </div>`;
+  document.getElementById('btnStep2').disabled = true;
+}
+
+function acceptTvbox() {
+  state.wantsTvbox = true;
+  document.getElementById('deliverySection').innerHTML = `
+    <div style="margin-top:16px" class="fade-in">
+      <div class="sec-h">Como quer receber?</div>
+      <div class="delivery-grid">
+        <div class="delivery-opt" onclick="selectDelivery('correios',this)">
+          <div class="ico">📬</div>
+          <div class="name">Correios</div>
+          <div class="desc">Envio pra todo Brasil</div>
+        </div>
+        <div class="delivery-opt" onclick="selectDelivery('pessoal',this)">
+          <div class="ico">🚗</div>
+          <div class="name">Entrega pessoal</div>
+          <div class="desc">Eu levo até você</div>
+        </div>
+      </div>
+      <div id="addressFields"></div>
+    </div>`;
+}
+
+function declineTvbox() {
+  state.wantsTvbox = false;
+  state.delivery = null;
+  document.getElementById('deliverySection').innerHTML = '';
+  document.getElementById('btnStep2').disabled = false;
+}
+
+function selectDelivery(type, el) {
+  document.querySelectorAll('.delivery-opt').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  state.delivery = type;
+
+  const label = type === 'correios' ? 'Endereço completo (com CEP)' : 'Endereço ou ponto de referência';
+  document.getElementById('addressFields').innerHTML = `
+    <div class="fade-in">
+      <div class="input-group">
+        <label>Seu nome</label>
+        <input type="text" id="inputName" placeholder="Nome completo" oninput="checkAddressForm()">
+      </div>
+      <div class="input-group">
+        <label>${label}</label>
+        <textarea id="inputAddress" placeholder="${type === 'correios' ? 'Rua, número, bairro, cidade, CEP' : 'Bairro, cidade ou ponto de referência'}" oninput="checkAddressForm()"></textarea>
+      </div>
+    </div>`;
+  document.getElementById('btnStep2').disabled = true;
+}
+
+function checkAddressForm() {
+  const n = document.getElementById('inputName').value.trim();
+  const a = document.getElementById('inputAddress').value.trim();
+  state.name = n;
+  state.address = a;
+  document.getElementById('btnStep2').disabled = !(n.length > 2 && a.length > 5);
+}
+
+// ====== STEP 3: PAYMENT ======
+function goToStep3() {
+  state.currentStep = 3;
+  const plan = state.plan;
+  const total = plan.price + (state.wantsTvbox ? TVBOX_PRICE : 0);
+  const brcode = pixBRCode(PIX_KEY, PIX_NAME, PIX_CITY, total);
+  const totalStr = total.toFixed(2).replace('.',',');
+
+  // Build WhatsApp message
+  let waMsg = `Olá! Acabei de fazer o Pix de R$${totalStr} para:\n`;
+  waMsg += `📺 Plano ${plan.name} (${plan.screens}) — R$${plan.price.toFixed(2).replace('.',',')}/mês\n`;
+  waMsg += `📱 Aparelho: ${state.device === 'smarttv' ? 'Smart TV' : state.device === 'tvbox' ? 'TV Box' : state.device} ${state.brand && state.brand !== state.device ? '(' + state.brand + ')' : ''}\n`;
+  if (state.wantsTvbox) {
+    waMsg += `📦 + TV Box PlayMax — R$189,99\n`;
+    waMsg += `🚚 Entrega: ${state.delivery === 'correios' ? 'Correios' : 'Pessoal'}\n`;
+    waMsg += `📍 ${state.address}\n`;
+    waMsg += `👤 Nome: ${state.name}\n`;
+  }
+  waMsg += `\nPode ativar minha lista?`;
+
+  const c = document.getElementById('checkout');
+  c.innerHTML = `
+    <div class="checkout-header">
+      <div class="logo"><em>PlayMax</em> TV</div>
+      ${getStepsHTML(3)}
+    </div>
+    ${getPlanBoxHTML(plan)}
+
+    <div class="total-box" style="margin-top:16px">
+      <div class="total-line sub"><span>Plano ${plan.name} (mensal)</span><span>R$${plan.price.toFixed(2).replace('.',',')}</span></div>
+      ${state.wantsTvbox ? `<div class="total-line sub"><span>📦 TV Box configurada</span><span>R$${TVBOX_PRICE.toFixed(2).replace('.',',')}</span></div>` : ''}
+      <div class="total-line grand"><span>Total</span><span class="v">R$${totalStr}</span></div>
+    </div>
 
     <div class="divider"></div>
 
-    <div class="pix-section">
-      <div class="pix-title">Escaneie o QR Code com seu banco</div>
-      <div class="pix-sub">O pagamento é confirmado na hora via Pix</div>
-
+    <div class="section-pad pix-section fade-in">
+      <div class="pix-title">Escaneie o QR Code pra pagar</div>
+      <div class="pix-sub">Pagamento instantâneo via Pix</div>
       <div class="qr-container" id="qrcode"></div>
 
       <div class="copy-row">
-        <div class="key">
-          <strong>Pix Copia e Cola</strong>
-          <span id="pixcode">${brcode}</span>
-        </div>
-        <button class="copy-btn" onclick="copyPix(this)">Copiar</button>
+        <div class="key"><strong>Pix Copia e Cola</strong><span id="pixcode">${brcode}</span></div>
+        <button class="copy-btn" onclick="copyText('${brcode}',this)">Copiar</button>
       </div>
-
       <div class="copy-row">
-        <div class="key">
-          <strong>Chave Pix (E-mail)</strong>
-          <span>${PIX_KEY}</span>
-        </div>
-        <button class="copy-btn" onclick="copyKey(this)">Copiar</button>
+        <div class="key"><strong>Chave Pix (E-mail)</strong><span>${PIX_KEY}</span></div>
+        <button class="copy-btn" onclick="copyText('${PIX_KEY}',this)">Copiar</button>
       </div>
 
-      <div class="timer-row">
-        <span class="dot"></span>
-        <span>Aguardando pagamento — <strong id="timer">15:00</strong></span>
-      </div>
+      <div class="timer-row"><span class="dot"></span><span>Aguardando pagamento — <strong id="timer">15:00</strong></span></div>
     </div>
 
     <div class="actions">
-      <a href="https://wa.me/${WHATSAPP}?text=${waMsg}" class="btn-wa" target="_blank">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.638l4.685-1.248A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.24 0-4.326-.694-6.044-1.878l-.344-.238-3.522.938.774-3.375-.256-.368A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      <a href="https://wa.me/${WHATSAPP}?text=${encodeURIComponent(waMsg)}" class="btn-wa" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.638l4.685-1.248A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.24 0-4.326-.694-6.044-1.878l-.344-.238-3.522.938.774-3.375-.256-.368A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
         Já paguei — Ativar minha lista
       </a>
-      <a href="playmax-tv-landing.html" class="btn-secondary">← Trocar de plano</a>
+      <button class="btn-secondary" onclick="renderStep2()">← Voltar</button>
       <div class="secure">🔒 Pagamento seguro via Pix • Banco Central do Brasil</div>
     </div>
   `;
 
-  // Generate QR Code
-  // Generate QR Code (responsive size)
+  // QR Code
   const qrSize = window.innerWidth <= 380 ? 160 : window.innerWidth <= 540 ? 180 : 220;
-  new QRCode(document.getElementById('qrcode'), {
-    text: brcode,
-    width: qrSize,
-    height: qrSize,
-    colorDark: '#000000',
-    colorLight: '#ffffff',
-    correctLevel: QRCode.CorrectLevel.M,
-  });
-
-  // Remove duplicate image (qrcode.js creates both canvas and img)
+  new QRCode(document.getElementById('qrcode'), { text: brcode, width: qrSize, height: qrSize, colorDark:'#000', colorLight:'#fff', correctLevel: QRCode.CorrectLevel.M });
   const qrImg = document.querySelector('#qrcode img');
   if (qrImg) qrImg.style.display = 'none';
 
-  // Countdown timer
   startTimer(15 * 60);
 }
 
-// ====== COPY FUNCTIONS ======
-function copyPix(btn) {
-  const code = document.getElementById('pixcode').textContent;
-  navigator.clipboard.writeText(code).then(() => {
+// ====== UTILS ======
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
     btn.textContent = 'Copiado!';
     btn.classList.add('copied');
     setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2500);
   });
 }
 
-function copyKey(btn) {
-  navigator.clipboard.writeText(PIX_KEY).then(() => {
-    btn.textContent = 'Copiado!';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2500);
-  });
-}
-
-// ====== TIMER ======
 function startTimer(seconds) {
   const el = document.getElementById('timer');
   if (!el) return;
   const tick = () => {
     if (seconds <= 0) { el.textContent = '00:00'; return; }
-    const m = Math.floor(seconds / 60);
-    const s = seconds % 60;
+    const m = Math.floor(seconds / 60), s = seconds % 60;
     el.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
     seconds--;
     setTimeout(tick, 1000);
@@ -381,7 +556,21 @@ function startTimer(seconds) {
 }
 
 // ====== INIT ======
-render();
+function init() {
+  const params = new URLSearchParams(window.location.search);
+  const planKey = params.get('plano');
+  const c = document.getElementById('checkout');
+
+  if (!planKey || !PLANS[planKey]) {
+    c.innerHTML = `<div class="no-plan"><h2>Nenhum plano selecionado</h2><p>Volte e escolha o plano ideal pra você.</p><a href="playmax-tv-landing.html">Ver Planos</a></div>`;
+    return;
+  }
+
+  state.plan = PLANS[planKey];
+  renderStep2();
+}
+
+init();
 </script>
 </body>
 </html>
