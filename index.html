@@ -399,7 +399,7 @@ footer { padding:28px 0; border-top:1px solid var(--border); text-align:center; 
         <li class="off"><span class="ck">—</span> Filmes & Séries</li>
         <li class="off"><span class="ck">—</span> Conteúdo adulto</li>
       </ul>
-      <a href="playmax-checkout.html?plano=basico" class="pbtn o">Assinar Básico</a>
+      <a href="checkout.html?plano=basico" class="pbtn o">Assinar Básico</a>
     </div>
     <!-- PREMIUM -->
     <div class="pcard pop rv">
@@ -415,7 +415,7 @@ footer { padding:28px 0; border-top:1px solid var(--border); text-align:center; 
         <li><span class="ck">✓</span> Atualizações semanais</li>
         <li><span class="ck">✓</span> Suporte prioritário</li>
       </ul>
-      <a href="playmax-checkout.html?plano=premium" class="pbtn g">Assinar Premium</a>
+      <a href="checkout.html?plano=premium" class="pbtn g">Assinar Premium</a>
     </div>
     <!-- FAMILIA -->
     <div class="pcard rv">
@@ -430,7 +430,7 @@ footer { padding:28px 0; border-top:1px solid var(--border); text-align:center; 
         <li><span class="ck">✓</span> Suporte VIP 24h</li>
         <li><span class="ck">✓</span> Ativação em 2 minutos</li>
       </ul>
-      <a href="playmax-checkout.html?plano=familia" class="pbtn o">Assinar Família</a>
+      <a href="checkout.html?plano=familia" class="pbtn o">Assinar Família</a>
     </div>
   </div>
 </div>
@@ -497,7 +497,10 @@ footer { padding:28px 0; border-top:1px solid var(--border); text-align:center; 
 </section>
 
 <footer>
-  <div class="wrap">© 2026 PlayMax TV — Todos os direitos reservados</div>
+  <div class="wrap">
+    <div style="margin-bottom:8px">© 2026 PlayMax TV — Todos os direitos reservados</div>
+    <a href="https://playmax-afiliados.vercel.app" style="color:var(--accent);text-decoration:none;font-size:.78rem;font-weight:500">💰 Quer ganhar dinheiro indicando? Seja afiliado →</a>
+  </div>
 </footer>
 
 <!-- FLOAT WA -->
@@ -505,12 +508,32 @@ footer { padding:28px 0; border-top:1px solid var(--border); text-align:center; 
   <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.638l4.685-1.248A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.24 0-4.326-.694-6.044-1.878l-.344-.238-3.522.938.774-3.375-.256-.368A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
 </a>
 
-<!-- SCROLL REVEAL -->
+<!-- SCROLL REVEAL + AFFILIATE TRACKING -->
 <script>
 const obs = new IntersectionObserver((entries) => {
   entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); } });
 }, { threshold: 0.15 });
 document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+// Affiliate ref tracking — append ?ref=CODE to checkout links
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const ref = params.get('ref');
+  if (ref) {
+    document.querySelectorAll('a[href*="playmax-checkout"]').forEach(a => {
+      const url = new URL(a.href, window.location.origin);
+      url.searchParams.set('ref', ref);
+      a.href = url.toString();
+    });
+    // Also append to WhatsApp links
+    document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
+      const url = new URL(a.href);
+      const curText = url.searchParams.get('text') || '';
+      url.searchParams.set('text', curText + ' (ref: ' + ref + ')');
+      a.href = url.toString();
+    });
+  }
+})();
 </script>
 </body>
 </html>
