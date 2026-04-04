@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PlayMax TV — Criativos Diários</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Sora:wght@400;500;600;700;800&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#08080c;--bg2:#0d0d14;--bg3:#161620;
+  --accent:#00e87b;--purple:#7c5cfc;--pink:#ff6b9d;--orange:#ff9f43;
+  --txt:#f0f0f5;--txt2:#8888a0;--txt3:#55556a;--border:rgba(255,255,255,.06);
+  --grad:linear-gradient(135deg,#00e87b,#7c5cfc,#ff6b9d);
+}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh}
+
+/* TOP */
+.top{position:sticky;top:0;z-index:100;background:rgba(8,8,12,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;justify-content:space-between}
+.top .logo{font-family:'Sora',sans-serif;font-weight:700;font-size:1.05rem}
+.top .logo em{font-style:normal;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.top .pill{font-size:.68rem;padding:4px 12px;background:rgba(0,232,123,.1);color:var(--accent);border-radius:100px;font-weight:600}
+
+/* TABS */
+.tabs{display:flex;gap:0;padding:0;border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tabs button{flex:1;min-width:0;padding:13px 10px;background:none;border:none;color:var(--txt3);font-family:inherit;font-size:.8rem;font-weight:500;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .3s;text-align:center}
+.tabs button.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+.wrap{padding:20px 16px 100px;max-width:700px;margin:0 auto}
+.sh h2{font-family:'Sora',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:4px}
+.sh p{color:var(--txt2);font-size:.82rem;margin-bottom:20px}
+
+/* TAB CONTENT */
+.tc{display:none}.tc.on{display:block}
+
+/* ===== CALENDAR ===== */
+.today-card{background:var(--bg2);border:1.5px solid var(--accent);border-radius:14px;padding:18px;margin-bottom:20px;position:relative;overflow:hidden}
+.today-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad)}
+.today-card .badge{display:inline-block;padding:4px 12px;background:rgba(0,232,123,.12);color:var(--accent);font-size:.7rem;font-weight:600;border-radius:100px;margin-bottom:10px}
+.today-card h3{font-size:1.05rem;font-weight:700;margin-bottom:4px}
+.today-card .meta{font-size:.78rem;color:var(--txt2);margin-bottom:10px;display:flex;gap:12px;flex-wrap:wrap}
+.today-card .meta span{display:flex;align-items:center;gap:4px}
+.today-card .desc{font-size:.84rem;color:var(--txt2);line-height:1.6;margin-bottom:14px}
+.today-card .actions-row{display:flex;gap:8px;flex-wrap:wrap}
+
+.cal-list{display:flex;flex-direction:column;gap:6px}
+.cal-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;transition:all .2s;cursor:pointer}
+.cal-item:hover{border-color:rgba(255,255,255,.1)}
+.cal-item.today{border-color:var(--accent);background:rgba(0,232,123,.03)}
+.cal-item.past{opacity:.45}
+.cal-item .day{font-family:'Sora',sans-serif;font-weight:700;font-size:.82rem;color:var(--accent);min-width:48px;text-align:center;line-height:1.2}
+.cal-item .day small{font-size:.65rem;font-weight:400;color:var(--txt3);display:block}
+.tag-t{padding:3px 10px;border-radius:100px;font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+.tag-t.feed{background:rgba(124,92,252,.12);color:#7c5cfc}
+.tag-t.story{background:rgba(255,107,157,.12);color:#ff6b9d}
+.tag-t.reels{background:rgba(0,232,123,.12);color:#00e87b}
+.tag-t.afiliado{background:rgba(255,159,67,.12);color:#ff9f43}
+.cal-item .info{flex:1;min-width:0}
+.cal-item .info h4{font-size:.84rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cal-item .info span{font-size:.72rem;color:var(--txt3)}
+
+/* ===== CREATIVES ===== */
+.cw{margin-bottom:28px}
+.cw-label{font-size:.68rem;text-transform:uppercase;letter-spacing:2px;color:var(--accent);font-weight:600;margin-bottom:8px}
+.scale-wrap{overflow:hidden;border-radius:10px;border:1px solid var(--border);margin-bottom:10px}
+.dl-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.dl-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--txt);font-family:inherit;font-size:.78rem;font-weight:500;border-radius:100px;cursor:pointer;transition:all .3s}
+.dl-btn:hover{background:var(--accent);color:#000;border-color:var(--accent)}
+.dl-btn.busy{opacity:.5;pointer-events:none}
+
+.cap-box{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;position:relative}
+.cap-box p{font-size:.8rem;color:var(--txt2);line-height:1.6;white-space:pre-line}
+.cap-box .cc{position:absolute;top:8px;right:8px;padding:5px 12px;background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--txt2);font-family:inherit;font-size:.7rem;font-weight:500;border-radius:100px;cursor:pointer;transition:all .3s}
+.cap-box .cc:hover{background:var(--accent);color:#000;border-color:var(--accent)}
+
+/* REELS */
+.rc{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:12px}
+.rc h3{font-size:.95rem;font-weight:700;margin-bottom:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rc .dur{font-size:.72rem;color:var(--txt3);margin-bottom:10px}
+.rc .script{font-size:.82rem;color:var(--txt2);line-height:1.7;white-space:pre-line;background:rgba(0,0,0,.3);padding:12px;border-radius:8px;margin-bottom:8px}
+.rc .audio{font-size:.75rem;color:var(--purple);font-weight:500;margin-bottom:8px}
+.rc .cpbtn{padding:7px 16px;background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--txt2);font-family:inherit;font-size:.72rem;border-radius:100px;cursor:pointer;transition:all .3s}
+.rc .cpbtn:hover{background:var(--accent);color:#000;border-color:var(--accent)}
+
+/* POST 1080 */
+.post{width:1080px;height:1080px;position:relative;overflow:hidden}
+.story{width:1080px;height:1920px;position:relative;overflow:hidden}
+
+/* Styles for rendered creatives */
+.c-compare{background:linear-gradient(145deg,#06060a,#0a1a12);padding:80px;display:flex;flex-direction:column;justify-content:space-between}
+.c-compare .badge{font-size:28px;text-transform:uppercase;letter-spacing:4px;color:#00e87b;font-weight:600;padding:16px 36px;background:rgba(0,232,123,.1);border:1px solid rgba(0,232,123,.2);border-radius:100px;display:inline-block;margin-bottom:40px}
+.c-compare h2{font-family:'Sora',sans-serif;font-size:72px;font-weight:800;line-height:1.15;margin-bottom:56px;color:#f0f0f5}
+.c-compare .list{display:flex;flex-direction:column;gap:20px;flex:1}
+.c-compare .item{display:flex;justify-content:space-between;align-items:center;padding:24px 36px;background:rgba(255,255,255,.04);border-radius:20px;font-size:36px}
+.c-compare .item .n{color:#aaa} .c-compare .item .v{font-weight:700;color:#ff6b6b}
+.c-compare .item.win{background:rgba(0,232,123,.08);border:2px solid rgba(0,232,123,.25)} .c-compare .item.win .v{color:#00e87b}
+.c-compare .foot{display:flex;align-items:center;justify-content:space-between;margin-top:48px}
+.c-compare .foot .flogo{font-family:'Sora',sans-serif;font-weight:700;font-size:36px;color:#f0f0f5}
+.c-compare .foot .flogo em{font-style:normal;color:#00e87b}
+.c-compare .foot .cta{font-size:28px;color:#00e87b;font-weight:600;padding:16px 36px;border:2px solid rgba(0,232,123,.3);border-radius:100px}
+
+.c-price{background:linear-gradient(160deg,#06060a,#0d0818);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px}
+.c-price .emoji{font-size:100px;margin-bottom:24px}
+.c-price h2{font-family:'Sora',sans-serif;font-size:64px;font-weight:800;margin-bottom:16px;color:#f0f0f5;line-height:1.15}
+.c-price .sub{color:#888;font-size:36px;margin-bottom:56px}
+.c-price .big{font-family:'Sora',sans-serif;font-size:160px;font-weight:800;background:linear-gradient(135deg,#00e87b,#7c5cfc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:8px}
+.c-price .big sup{font-size:56px}
+.c-price .per{color:#666;font-size:36px;margin-bottom:56px}
+.c-price .feats{display:flex;flex-direction:column;gap:18px;margin-bottom:56px}
+.c-price .feats span{font-size:32px;color:#bbb;display:flex;align-items:center;gap:16px}
+.c-price .feats span::before{content:'✓';color:#00e87b;font-weight:700;font-size:36px}
+.c-price .cta{padding:28px 72px;background:#00e87b;color:#000;font-weight:700;font-size:36px;border-radius:100px}
+
+.c-free{background:linear-gradient(160deg,#0a0a18,#061a0e);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px;position:relative}
+.c-free .gift{font-size:140px;margin-bottom:32px;position:relative;z-index:1}
+.c-free h2{font-family:'Sora',sans-serif;font-size:76px;font-weight:800;line-height:1.15;margin-bottom:20px;color:#f0f0f5;position:relative;z-index:1}
+.c-free h2 span{color:#00e87b}
+.c-free .sub{color:#888;font-size:36px;margin-bottom:56px;line-height:1.5;position:relative;z-index:1}
+.c-free .hours{font-family:'Sora',sans-serif;font-size:180px;font-weight:800;color:#00e87b;line-height:1;position:relative;z-index:1}
+.c-free .hours-label{font-size:40px;color:#aaa;margin-bottom:56px;font-weight:500;position:relative;z-index:1}
+.c-free .wa-box{display:flex;align-items:center;gap:20px;padding:28px 56px;background:rgba(37,211,102,.1);border:2px solid rgba(37,211,102,.25);border-radius:100px;font-size:36px;font-weight:600;color:#25d366;position:relative;z-index:1}
+
+.c-stats{background:linear-gradient(160deg,#06060a,#180616);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px}
+.c-stats .top{font-size:28px;text-transform:uppercase;letter-spacing:4px;color:#7c5cfc;font-weight:600;margin-bottom:40px}
+.c-stats h2{font-family:'Sora',sans-serif;font-size:64px;font-weight:800;margin-bottom:64px;line-height:1.2;color:#f0f0f5}
+.c-stats .grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;width:100%;margin-bottom:56px}
+.c-stats .box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:28px;padding:48px 32px}
+.c-stats .box b{font-family:'Sora',sans-serif;font-size:80px;font-weight:800;display:block;margin-bottom:8px;background:linear-gradient(135deg,#00e87b,#7c5cfc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.c-stats .box span{font-size:28px;color:#888}
+.c-stats .bcta{font-size:32px;color:#00e87b;font-weight:600}
+
+.c-before{background:linear-gradient(160deg,#06060a,#1a0a0a);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px}
+.c-before h2{font-family:'Sora',sans-serif;font-size:68px;font-weight:800;margin-bottom:48px;color:#f0f0f5}
+.c-before .split{display:grid;grid-template-columns:1fr 1fr;gap:28px;width:100%;margin-bottom:48px}
+.c-before .side{border-radius:28px;padding:48px 32px;display:flex;flex-direction:column;align-items:center;gap:20px}
+.c-before .side.bad{background:rgba(255,107,107,.06);border:2px solid rgba(255,107,107,.15)}
+.c-before .side.good{background:rgba(0,232,123,.06);border:2px solid rgba(0,232,123,.15)}
+.c-before .side .icon{font-size:80px}
+.c-before .side h3{font-size:36px;font-weight:700}
+.c-before .side.bad h3{color:#ff6b6b} .c-before .side.good h3{color:#00e87b}
+.c-before .side ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.c-before .side ul li{font-size:28px;color:#aaa}
+.c-before .foot{font-size:36px;font-weight:700;color:#f0f0f5}
+.c-before .foot em{font-style:normal;color:#00e87b}
+
+.c-depo{background:linear-gradient(160deg,#06060a,#0d0818);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px}
+.c-depo .qt{font-size:120px;color:#7c5cfc;margin-bottom:32px;line-height:1}
+.c-depo .text{font-size:48px;font-style:italic;color:#ccc;line-height:1.5;margin-bottom:32px;max-width:860px}
+.c-depo .who{font-size:32px;color:#666;margin-bottom:32px}
+.c-depo .midbox{background:rgba(0,232,123,.06);border:2px solid rgba(0,232,123,.15);border-radius:28px;padding:40px;width:100%;margin-bottom:40px}
+.c-depo .midbox h3{font-family:'Sora',sans-serif;font-size:40px;font-weight:700;margin-bottom:8px;color:#f0f0f5}
+.c-depo .midbox p{font-size:28px;color:#888}
+.c-depo .wabtn{display:flex;align-items:center;gap:16px;padding:24px 48px;background:#25d366;color:#fff;font-weight:700;font-size:32px;border-radius:100px}
+
+.c-afiliado{background:linear-gradient(160deg,#06060a,#1a1206);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px}
+.c-afiliado .emoji{font-size:120px;margin-bottom:24px}
+.c-afiliado h2{font-family:'Sora',sans-serif;font-size:68px;font-weight:800;line-height:1.15;margin-bottom:16px;color:#f0f0f5}
+.c-afiliado h2 span{color:#ff9f43}
+.c-afiliado .sub{font-size:36px;color:#888;margin-bottom:48px;line-height:1.5}
+.c-afiliado .perks{display:flex;flex-direction:column;gap:20px;width:100%;margin-bottom:48px}
+.c-afiliado .perks span{font-size:32px;color:#bbb;display:flex;align-items:center;gap:16px;background:rgba(255,159,67,.04);padding:24px 32px;border-radius:20px;border:1px solid rgba(255,159,67,.1)}
+.c-afiliado .perks span::before{content:'💰';font-size:28px}
+.c-afiliado .cta{padding:28px 72px;background:#ff9f43;color:#000;font-weight:700;font-size:36px;border-radius:100px}
+
+.c-futebol{background:linear-gradient(160deg,#06060a,#0a1a0e);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px}
+.c-futebol .emoji{font-size:140px;margin-bottom:24px}
+.c-futebol h2{font-family:'Sora',sans-serif;font-size:68px;font-weight:800;line-height:1.15;margin-bottom:16px;color:#f0f0f5}
+.c-futebol .sub{font-size:36px;color:#888;margin-bottom:48px;line-height:1.5}
+.c-futebol .channels{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-bottom:48px}
+.c-futebol .channels span{padding:16px 32px;background:rgba(0,232,123,.06);border:1px solid rgba(0,232,123,.15);border-radius:100px;font-size:28px;font-weight:600;color:#00e87b}
+.c-futebol .foot{font-size:32px;font-weight:600;color:#00e87b}
+
+.render-area{position:absolute;left:-9999px;top:0}
+
+@media(max-width:500px){
+  .top{padding:10px 14px}
+  .tabs button{font-size:.75rem;padding:11px 6px}
+  .wrap{padding:16px 14px 80px}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="logo"><em>PlayMax</em> TV</div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <a href="index.html" target="_blank" style="font-size:.7rem;padding:4px 12px;background:rgba(0,232,123,.1);color:var(--accent);border-radius:100px;font-weight:600;text-decoration:none">🌐 Site</a>
+    <a href="afiliados.html" target="_blank" style="font-size:.7rem;padding:4px 12px;background:rgba(255,159,67,.1);color:var(--orange);border-radius:100px;font-weight:600;text-decoration:none">🤝 Afiliados</a>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="active" onclick="tab('cal',this)">📅 Hoje</button>
+  <button onclick="tab('posts',this)">📸 Posts</button>
+  <button onclick="tab('stories',this)">📱 Stories</button>
+  <button onclick="tab('reels',this)">🎬 Reels</button>
+  <button onclick="tab('afiliado',this)">🤝 Afiliados</button>
+</div>
+
+<div class="wrap">
+
+<!-- ===== CALENDÁRIO DIÁRIO ===== -->
+<div class="tc on" id="tc-cal">
+  <div class="sh">
+    <h2>📅 O que postar hoje</h2>
+    <p>Conteúdo novo todo dia — siga o calendário e mantenha consistência</p>
+  </div>
+  <div id="todayContent"></div>
+  <h3 style="font-size:.9rem;margin:24px 0 12px;color:var(--txt2)">Próximos 30 dias</h3>
+  <div class="cal-list" id="calList"></div>
+</div>
+
+<!-- ===== POSTS ===== -->
+<div class="tc" id="tc-posts">
+  <div class="sh">
+    <h2>📸 Posts pro Feed (1080×1080)</h2>
+    <p>Baixe em PNG e poste direto — legenda inclusa</p>
+  </div>
+  <div id="postsContent"></div>
+</div>
+
+<!-- ===== STORIES ===== -->
+<div class="tc" id="tc-stories">
+  <div class="sh">
+    <h2>📱 Roteiros de Stories</h2>
+    <p>Ideias prontas pra gravar nos stories — 1 por dia</p>
+  </div>
+  <div id="storiesContent"></div>
+</div>
+
+<!-- ===== REELS ===== -->
+<div class="tc" id="tc-reels">
+  <div class="sh">
+    <h2>🎬 Roteiros de Reels / TikTok</h2>
+    <p>Copie e grave — 15 a 30 segundos cada</p>
+  </div>
+  <div id="reelsContent"></div>
+</div>
+
+<!-- ===== AFILIADOS ===== -->
+<div class="tc" id="tc-afiliado">
+  <div class="sh">
+    <h2>🤝 Kit Afiliado</h2>
+    <p>Criativos e legendas prontas pro afiliado postar e vender</p>
+  </div>
+  <div id="afiliadoContent"></div>
+</div>
+
+</div>
+
+<div class="render-area" id="renderArea"></div>
+
+<script>
+// ===== CREATIVE TEMPLATES =====
+const C = {
+  compare: `<div class="post c-compare" style="width:1080px;height:1080px"><div><div class="badge">Faz a conta 🧮</div><h2>Quanto você paga<br>de TV por mês?</h2></div><div class="list"><div class="item"><span class="n">📺 TV a Cabo</span><span class="v">R$250/mês</span></div><div class="item"><span class="n">📱 Netflix</span><span class="v">R$55/mês</span></div><div class="item"><span class="n">📱 Globoplay</span><span class="v">R$30/mês</span></div><div class="item"><span class="n">📱 Prime Video</span><span class="v">R$15/mês</span></div><div class="item win"><span class="n">🔥 PlayMax TV (TUDO)</span><span class="v">R$59,90</span></div></div><div class="foot"><div class="flogo"><em>PlayMax</em> TV</div><div class="cta">Link na bio →</div></div></div>`,
+  price: `<div class="post c-price" style="width:1080px;height:1080px"><div class="emoji">📺</div><h2>Sua TV completa<br>por um preço justo</h2><div class="sub">Canais, filmes, séries e muito mais</div><div class="big"><sup>R$</sup>59,90</div><div class="per">por mês • sem fidelidade</div><div class="feats"><span>2.300+ canais ao vivo em HD</span><span>Filmes e séries atualizados</span><span>Funciona em qualquer tela</span><span>Ativação em 5 minutos</span></div><div class="cta">Chama no WhatsApp →</div></div>`,
+  free: `<div class="post c-free" style="width:1080px;height:1080px"><div class="gift">🎁</div><h2>Teste <span>GRÁTIS</span><br>antes de assinar</h2><div class="sub">Sem compromisso, sem cartão.<br>Só pra você ver a qualidade.</div><div class="hours">6H</div><div class="hours-label">de teste gratuito</div><div class="wa-box">📲 Chama no WhatsApp</div></div>`,
+  stats: `<div class="post c-stats" style="width:1080px;height:1080px"><div class="top">Por que escolher a PlayMax?</div><h2>Números que falam<br>por si só</h2><div class="grid"><div class="box"><b>2.300+</b><span>Canais ao vivo</span></div><div class="box"><b>15.000+</b><span>Filmes & séries</span></div><div class="box"><b>99,5%</b><span>Estabilidade</span></div><div class="box"><b>5min</b><span>Pra ativar</span></div></div><div class="bcta">A partir de R$59,90/mês • Link na bio</div></div>`,
+  before: `<div class="post c-before" style="width:1080px;height:1080px"><h2>Antes vs Depois 😅➡️🔥</h2><div class="split"><div class="side bad"><div class="icon">😩</div><h3>ANTES</h3><ul><li>Poucos canais</li><li>R$300+/mês</li><li>Sem filmes</li><li>Trava toda hora</li></ul></div><div class="side good"><div class="icon">🤩</div><h3>DEPOIS</h3><ul><li>2.300+ canais</li><li>R$59,90/mês</li><li>Filmes & séries</li><li>99,5% estável</li></ul></div></div><div class="foot"><em>PlayMax</em> TV — Link na bio 📲</div></div>`,
+  depo: `<div class="post c-depo" style="width:1080px;height:1080px"><div class="qt">❝</div><div class="text">"Melhor custo-benefício que já vi! Cancelei a TV a cabo e não me arrependo!"</div><div class="who">— Cliente desde 2025 ⭐⭐⭐⭐⭐</div><div class="midbox"><h3>Quer ser o próximo?</h3><p>Teste 6 horas grátis antes de assinar</p></div><div class="wabtn">📲 Chama no WhatsApp</div></div>`,
+  afiliado: `<div class="post c-afiliado" style="width:1080px;height:1080px"><div class="emoji">💰</div><h2>Ganhe dinheiro<br><span>indicando TV</span></h2><div class="sub">Seja afiliado PlayMax TV e lucre<br>com cada venda que fizer</div><div class="perks"><span>15% de comissão por venda</span><span>Comissão nos 3 primeiros meses</span><span>Link exclusivo de divulgação</span><span>Suporte e material pronto</span></div><div class="cta">Quero ser afiliado →</div></div>`,
+  futebol: `<div class="post c-futebol" style="width:1080px;height:1080px"><div class="emoji">⚽</div><h2>Todos os jogos<br>ao vivo em HD</h2><div class="sub">Brasileirão, Libertadores, Champions,<br>Premier League e muito mais</div><div class="channels"><span>ESPN</span><span>SporTV</span><span>Premiere</span><span>TNT Sports</span><span>Star+</span><span>DAZN</span></div><div class="foot">A partir de R$59,90/mês • PlayMax TV</div></div>`,
+};
+
+// ===== 30-DAY DAILY SCHEDULE =====
+const SCHEDULE = [
+  {type:'feed',tag:'Feed',title:'Comparativo de Preço',desc:'Post mostrando PlayMax vs TV a cabo vs streaming',creative:'compare',cap:'Faz a conta comigo 🧮\n\n📺 TV a cabo: R$250/mês\n📱 Netflix + Globoplay + Prime: R$100/mês\n💸 Total: R$350/mês\n\n🔥 PlayMax TV (TUDO): R$59,90/mês ✅\n\nLink na bio 📲\n\n#iptv #playmaxTV #economize #tvdigital'},
+  {type:'story',tag:'Story',title:'Enquete: o que assistir?',desc:'Use sticker de enquete — "Filme ou série hoje?"',script:'Poste um story com fundo escuro e texto "FILME ou SÉRIE hoje? 🍿"\nAdicione sticker de enquete com as 2 opções\nNo próximo story, mostre sua lista rodando com ambas opções'},
+  {type:'reels',tag:'Reels',title:'"A conta não fecha"',desc:'Reel viral com calculadora de preços',script:'[Texto na tela: "Quanto você paga de TV por mês?"]\n[Mostra calculadora somando:]\nNetflix: R$55\nGloboplay: R$30\nPrime: R$15\nTV a cabo: R$200\nTOTAL: R$300 ❌\n\n[Corta pra tela com lista rodando]\n"Ou isso tudo por R$59,90/mês" ✅\n\n[Texto final: "Link na bio"]',audio:'🎵 Use trend do momento ou "Oh No" remix'},
+  {type:'feed',tag:'Feed',title:'Destaque de Preço',desc:'Post com preço grande e lista de features',creative:'price',cap:'Sua TV completa por um preço justo 📺\n\n🔥 A partir de R$59,90/mês\n\n✅ 2.300+ canais ao vivo\n✅ Filmes e séries atualizados\n✅ Funciona em qualquer tela\n✅ Sem contrato\n\nChama no WhatsApp 📲\n\n#playmaxTV #tvdigital #iptv'},
+  {type:'story',tag:'Story',title:'Bastidores: ativação ao vivo',desc:'Mostre como ativa uma lista em tempo real — gera curiosidade',script:'Filme sua tela enquanto cria uma lista no painel\nTexto: "É assim que eu ativo uma TV em 5 minutos ⚡"\nNo final: "Quer a sua? Chama no WhatsApp"'},
+  {type:'reels',tag:'Reels',title:'"5 minutos pra ativar"',desc:'Tutorial rápido do processo de ativação',script:'[Filme a tela do celular]\n"Vou te mostrar como eu ativo uma TV completa em 5 minutos"\n\n[Mostra o processo rápido]\n"2.300 canais, filmes, séries... tudo funcionando"\n\n[Aponta pra tela]\n"Quer o seu? Link na bio"',audio:'🎵 Música de tutorial ou "Step by Step"'},
+  {type:'feed',tag:'Feed',title:'Teste Grátis',desc:'Post chamando pra testar sem compromisso',creative:'free',cap:'🎁 TESTE GRÁTIS!\n\nQuer ver a qualidade antes de assinar?\n\n📺 2.300+ canais ao vivo\n🎬 Filmes e séries\n📱 No celular, TV ou computador\n\n6 HORAS GRÁTIS — sem compromisso\n\nChama no WhatsApp: (11) 91416-4272\n\n#testegratis #iptv #playmaxTV'},
+  {type:'story',tag:'Story',title:'Print de cliente satisfeito',desc:'Compartilhe conversa real (com permissão) — prova social',script:'Screenshot de uma conversa real com cliente feliz\nTexto em cima: "Mais um cliente satisfeito! 🔥"\nNo próximo story: "Quer ser o próximo? Chama no WhatsApp"'},
+  {type:'reels',tag:'Reels',title:'"Teste grátis, topa?"',desc:'Reel de conversão com oferta de teste',script:'[Câmera no rosto, expressão séria]\n"Se eu te der 6 horas grátis pra testar 2.300 canais, filmes e séries..."\n\n[Pausa dramática]\n"...você toparia?"\n\n[Sorriso]\n"É sério. Sem compromisso. Chama no WhatsApp"\n\n[Texto: número do WhatsApp]',audio:'🎵 Suspense dramático ou trend atual'},
+  {type:'feed',tag:'Feed',title:'Números / Social Proof',desc:'Post com estatísticas impressionantes',creative:'stats',cap:'Os números falam por si só 📊\n\n📺 2.300+ canais ao vivo\n🎬 15.000+ filmes e séries\n⚡ 99,5% de estabilidade\n🚀 Ativação em 5 minutos\n\nA partir de R$59,90/mês 🔥\n\n#playmaxTV #iptv #entretenimento'},
+  {type:'story',tag:'Story',title:'Countdown: oferta relâmpago',desc:'Use sticker de contagem regressiva pra criar urgência',script:'Fundo escuro com texto grande: "⚡ OFERTA RELÂMPAGO"\nSubtexto: "Plano Premium R$89,90/mês — só até amanhã"\nAdicione sticker de countdown com 24h\nSegundo story: detalhes do plano'},
+  {type:'reels',tag:'Reels',title:'"Antes e Depois"',desc:'Transição de TV entediante pra PlayMax',script:'[ANTES — você entediado no sofá]\nTV aberta com programa chato 😐\n"Pagando R$300 por mês nisso..."\n\n[TRANSIÇÃO — flash ou snap]\n\n[DEPOIS — mesma posição, animado]\nJogo ao vivo em HD ⚽🔥\n"Agora pago R$59,90 e tenho TUDO"\n\n[Texto: "PlayMax TV — Link na bio"]',audio:'🎵 "Makeba" ou trend de before/after'},
+  {type:'feed',tag:'Feed',title:'Antes vs Depois',desc:'Post visual comparando a vida antes e depois',creative:'before',cap:'Antes vs Depois da PlayMax TV 😅➡️🔥\n\nANTES:\n❌ Poucos canais\n❌ R$300+/mês\n❌ Sem filmes\n\nDEPOIS:\n✅ 2.300+ canais\n✅ R$59,90/mês\n✅ Filmes & séries\n\nFaz a mudança! Link na bio 📲\n\n#playmaxTV #antesedepois'},
+  {type:'story',tag:'Story',title:'Dica: como instalar o app',desc:'Mini tutorial em 3 slides pra gerar confiança',script:'Story 1: "Como instalar em 3 passos 📲"\nStory 2: "1. Baixe o app | 2. Insira os dados | 3. Assista!"\nStory 3: "Fácil né? Chama no WhatsApp e ative a sua"'},
+  {type:'reels',tag:'Reels',title:'"3 coisas sobre IPTV"',desc:'Reel educativo quebrando objeções',script:'[Câmera no rosto]\n"3 coisas que ninguém te conta sobre IPTV"\n\n[Dedo 1] "Funciona em QUALQUER tela — TV, celular, tablet"\n[Dedo 2] "Não precisa de antena, cabo, nada. Só internet"\n[Dedo 3] "Custa menos que um café por dia"\n\n[Aponta pra câmera]\n"Quer testar grátis? Link na bio"',audio:'🎵 "3 things" trend ou narração própria'},
+  {type:'feed',tag:'Feed',title:'Depoimento de Cliente',desc:'Post com avaliação 5 estrelas',creative:'depo',cap:'Mais um cliente satisfeito! ⭐⭐⭐⭐⭐\n\n"Melhor custo-benefício que já vi!"\n\nQuer ser o próximo? Teste 6h GRÁTIS 🎁\n\nChama no WhatsApp 📲\n\n#playmaxTV #clientefeliz'},
+  {type:'story',tag:'Story',title:'Quiz: quantos canais?',desc:'Enquete com pergunta divertida sobre quantidade de canais',script:'Story 1: "Quantos canais a PlayMax TV tem? 🤔"\nUse sticker de quiz com opções: A) 500  B) 1.200  C) 2.300+\nResposta certa: C!\nPróximo story: "E tudo isso por R$59,90/mês 🔥"'},
+  {type:'reels',tag:'Reels',title:'"POV: cancelou TV a cabo"',desc:'Reel de humor mostrando a diferença',script:'[Texto: "POV: você cancelou a TV a cabo e assinou PlayMax TV"]\n\n[Você deitado no sofá, sorrindo, zapeando feliz]\n\n[Corta pra tela: filmes, séries, jogos]\n\n[Texto final: "R$59,90/mês — Link na bio"]',audio:'🎵 "Life is Good" remix ou música chill'},
+  {type:'afiliado',tag:'Afiliado',title:'Recrutamento de Afiliados',desc:'Post chamando parceiros pra vender',creative:'afiliado',cap:'💰 GANHE DINHEIRO indicando TV!\n\nSeja afiliado PlayMax TV:\n\n✅ 15% de comissão por venda\n✅ Comissão nos 3 primeiros meses\n✅ Link exclusivo de divulgação\n✅ Material pronto pra postar\n\nChama no WhatsApp pra se cadastrar 📲\n\n#renda #rendaextra #afiliados #playmaxTV'},
+  {type:'story',tag:'Story',title:'Novidade: canais novos',desc:'Mostre canais que acabaram de ser adicionados',script:'Story 1: "🆕 NOVIDADE na PlayMax TV!"\nStory 2: Mostre 3-4 canais novos que foram adicionados\nStory 3: "Sempre atualizando pra você! 🔥\nJá é cliente? Já tá na sua lista!\nNão é? Link na bio"'},
+  {type:'reels',tag:'Reels',title:'"Quanto você economiza"',desc:'Reel com cálculo de economia anual',script:'[Texto: "Quanto você ECONOMIZA com PlayMax TV?"]\n\n[Calculadora na tela:]\nTV a cabo: R$250 x 12 = R$3.000/ano\nPlayMax: R$59,90 x 12 = R$718/ano\n\n[Flash:] ECONOMIA: R$2.282/ano 🤯\n\n"O que você faria com R$2.000 a mais?"\n\n[Texto: Link na bio]',audio:'🎵 "Money" ou trend de finanças'},
+  {type:'feed',tag:'Feed',title:'Futebol ao Vivo',desc:'Post focado em esportes e jogos',creative:'futebol',cap:'⚽ TODOS os jogos ao vivo em HD!\n\nBrasileirão, Libertadores, Champions, Premier League...\n\n📺 ESPN, SporTV, Premiere, TNT Sports\n\nTudo na PlayMax TV a partir de R$59,90/mês\n\nChama no WhatsApp 📲\n\n#futebol #brasileirao #libertadores #iptv'},
+  {type:'story',tag:'Story',title:'Antes de dormir...',desc:'Story noturno com sugestão de filme',script:'Story (postar às 21h):\nFundo escuro: "Dica de filme pra assistir agora 🍿"\nMostre 3 filmes em cartaz na lista\n"Tudo isso na PlayMax TV — R$59,90/mês"'},
+  {type:'reels',tag:'Reels',title:'"Minha rotina com PlayMax"',desc:'Reel estilo lifestyle mostrando uso no dia a dia',script:'[Manhã — café e notícias na TV]\n"Acordo e já ligo nos canais de notícia"\n\n[Tarde — jogo ao vivo]\n"De tarde, futebol ao vivo em HD"\n\n[Noite — filme no sofá]\n"De noite, filme lançamento com a família"\n\n"Tudo isso por R$59,90/mês 📺"\n[Texto: Link na bio]',audio:'🎵 "Day in My Life" trend'},
+  {type:'feed',tag:'Feed',title:'Comparativo (v2)',desc:'Repost do comparativo com novo ângulo',creative:'compare',cap:'Ainda pagando caro pra assistir TV? 😅\n\n📺 TV a cabo: R$250\n📱 Streamings: R$100+\n💸 Total: R$350/mês!\n\n🔥 OU tudo junto por R$59,90/mês\n\nSem contrato. Sem fidelidade.\nLink na bio 📲\n\n#playmaxTV #cortaocabo #economia'},
+  {type:'story',tag:'Story',title:'Plantão de vendas',desc:'Story anunciando que está online pra tirar dúvidas',script:'"🟢 TÔ ONLINE!\nTirando dúvidas e ativando listas agora"\nAdicione link do WhatsApp\n"Chama e ativa a sua em 5 minutos ⚡"'},
+  {type:'reels',tag:'Reels',title:'"Desafio: 1 semana sem cabo"',desc:'Reel de desafio que gera engajamento',script:'[Câmera no rosto]\n"Fiz 1 semana sem TV a cabo, só com PlayMax TV"\n\n[Dia 1] "Achei que ia sentir falta..."\n[Dia 3] "Tem tudo que eu assistia e mais"\n[Dia 7] "Cancelei a TV a cabo de vez 😂"\n\n"Economizei R$200/mês"\n\n[Texto: "Quer testar? Link na bio"]',audio:'🎵 "7 Days" ou trend de challenge'},
+  {type:'afiliado',tag:'Afiliado',title:'Resultados de Afiliados',desc:'Post com resultados dos parceiros',creative:'afiliado',cap:'Nossos afiliados já estão lucrando! 💰\n\n✅ 15% de comissão por venda\n✅ Comissão por 3 meses seguidos\n✅ Material pronto pra postar\n\nSeja afiliado PlayMax TV e comece a lucrar hoje!\n\nChama no WhatsApp 📲\n\n#afiliado #rendaextra #playmaxTV'},
+  {type:'story',tag:'Story',title:'Feedback: o que melhorar?',desc:'Use sticker de pergunta pra engajar clientes',script:'"O que você mais gosta na PlayMax TV? 🤔"\nAdicione sticker de pergunta\nReposte as melhores respostas como prova social'},
+  {type:'reels',tag:'Reels',title:'"Mito vs Verdade"',desc:'Reel quebrando mitos sobre IPTV',script:'[Texto: "MITO ou VERDADE?"]\n\n"IPTV trava toda hora" → MITO ❌\n(99,5% de estabilidade)\n\n"Funciona só na TV" → MITO ❌\n(Funciona em celular, tablet, PC)\n\n"É caro" → MITO ❌\n(A partir de R$59,90/mês)\n\n"Tem mais de 2.300 canais" → VERDADE ✅\n\n[Texto: "Link na bio 📲"]',audio:'🎵 Sound de "right or wrong" trend'},
+];
+
+// ===== INIT =====
+const TODAY = new Date(); TODAY.setHours(0,0,0,0);
+const REF = new Date('2026-04-04'); REF.setHours(0,0,0,0);
+
+function dayIndex(date) {
+  const diff = Math.floor((date - REF) / 86400000);
+  return ((diff % SCHEDULE.length) + SCHEDULE.length) % SCHEDULE.length;
+}
+
+function renderCalendar() {
+  const todayIdx = dayIndex(TODAY);
+  const item = SCHEDULE[todayIdx];
+  
+  let todayHTML = `<div class="today-card">
+    <div class="badge">📌 HOJE — ${TODAY.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'})}</div>
+    <h3>${item.title}</h3>
+    <div class="meta">
+      <span><span class="tag-t ${item.type}">${item.tag}</span></span>
+    </div>
+    <div class="desc">${item.desc}</div>`;
+
+  if (item.creative) {
+    todayHTML += `<div class="actions-row">
+      <button class="dl-btn" onclick="dlCreative('${item.creative}','PlayMax_${item.creative}')">📥 Baixar imagem</button>
+      ${item.cap ? `<button class="dl-btn" onclick="copTxt(this,'${btoa(unescape(encodeURIComponent(item.cap)))}')">📋 Copiar legenda</button>` : ''}
+    </div>`;
+  }
+  if (item.script) {
+    todayHTML += `<div style="margin-top:12px;background:rgba(0,0,0,.3);padding:12px;border-radius:8px;font-size:.82rem;color:var(--txt2);white-space:pre-line;line-height:1.6">${item.script}</div>`;
+    if (item.audio) todayHTML += `<div style="margin-top:8px;font-size:.75rem;color:var(--purple)">${item.audio}</div>`;
+  }
+  todayHTML += `</div>`;
+  document.getElementById('todayContent').innerHTML = todayHTML;
+
+  // Next 30 days
+  let listHTML = '';
+  for (let i = 0; i < 30; i++) {
+    const d = new Date(TODAY); d.setDate(TODAY.getDate() + i);
+    const idx = dayIndex(d);
+    const s = SCHEDULE[idx];
+    const isToday = i === 0;
+    const dayStr = d.toLocaleDateString('pt-BR',{day:'2-digit',month:'short'});
+    const weekday = d.toLocaleDateString('pt-BR',{weekday:'short'});
+    listHTML += `<div class="cal-item ${isToday?'today':''}">
+      <div class="day">${dayStr}<small>${weekday}</small></div>
+      <span class="tag-t ${s.type}">${s.tag}</span>
+      <div class="info"><h4>${s.title}</h4><span>${s.desc.substring(0,50)}${s.desc.length>50?'...':''}</span></div>
+    </div>`;
+  }
+  document.getElementById('calList').innerHTML = listHTML;
+}
+
+function renderPosts() {
+  const posts = SCHEDULE.filter(s => s.creative && s.type !== 'afiliado');
+  const unique = []; const seen = new Set();
+  posts.forEach(p => { if (!seen.has(p.creative)) { seen.add(p.creative); unique.push(p); }});
+
+  let html = '';
+  unique.forEach(p => {
+    const scale = Math.min((window.innerWidth - 64) / 1080, 0.34);
+    html += `<div class="cw">
+      <div class="cw-label">${p.title}</div>
+      <div class="scale-wrap" style="width:${1080*scale}px;height:${1080*scale}px">
+        <div style="transform:scale(${scale});transform-origin:top left;width:1080px;height:1080px">${C[p.creative]}</div>
+      </div>
+      <div class="dl-row">
+        <button class="dl-btn" onclick="dlCreative('${p.creative}','PlayMax_${p.creative}')">📥 Baixar PNG</button>
+      </div>
+      <div class="cap-box"><button class="cc" onclick="copEl(this)">Copiar</button><p>${p.cap}</p></div>
+    </div>`;
+  });
+  document.getElementById('postsContent').innerHTML = html;
+}
+
+function renderStories() {
+  const stories = SCHEDULE.filter(s => s.type === 'story');
+  let html = '';
+  stories.forEach((s,i) => {
+    html += `<div class="rc">
+      <h3>📱 Story ${i+1} — ${s.title}</h3>
+      <div class="dur">Dia ${SCHEDULE.indexOf(s)+1} do ciclo</div>
+      <div class="script">${s.script}</div>
+      <button class="cpbtn" onclick="copScript(this)">Copiar roteiro</button>
+    </div>`;
+  });
+  document.getElementById('storiesContent').innerHTML = html;
+}
+
+function renderReels() {
+  const reels = SCHEDULE.filter(s => s.type === 'reels');
+  let html = '';
+  reels.forEach((s,i) => {
+    html += `<div class="rc">
+      <h3>🎬 Reel ${i+1} — ${s.title} <span class="tag-t reels">15-30s</span></h3>
+      <div class="dur">Dia ${SCHEDULE.indexOf(s)+1} do ciclo</div>
+      <div class="script">${s.script}</div>
+      ${s.audio ? `<div class="audio">${s.audio}</div>` : ''}
+      <button class="cpbtn" onclick="copScript(this)">Copiar roteiro</button>
+    </div>`;
+  });
+  document.getElementById('reelsContent').innerHTML = html;
+}
+
+function renderAfiliado() {
+  const scale = Math.min((window.innerWidth - 64) / 1080, 0.34);
+  const afItem = SCHEDULE.find(s => s.creative === 'afiliado');
+  
+  let html = `
+    <div style="background:var(--bg2);border:1px solid rgba(255,159,67,.2);border-radius:14px;padding:18px;margin-bottom:24px">
+      <h3 style="font-size:1rem;margin-bottom:8px">💰 Programa de Afiliados PlayMax TV</h3>
+      <p style="font-size:.84rem;color:var(--txt2);line-height:1.6;margin-bottom:12px">Seus afiliados ganham <strong style="color:var(--orange)">15% de comissão</strong> em cada venda, nos <strong style="color:var(--orange)">3 primeiros meses</strong> do cliente.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
+        <div style="background:rgba(255,159,67,.06);border:1px solid rgba(255,159,67,.12);border-radius:10px;padding:14px 8px;text-align:center">
+          <div style="font-family:'Sora',sans-serif;font-size:1.3rem;font-weight:700;color:var(--orange)">R$8,99</div>
+          <div style="font-size:.68rem;color:var(--txt3)">por venda Básico</div>
+        </div>
+        <div style="background:rgba(255,159,67,.06);border:1px solid rgba(255,159,67,.12);border-radius:10px;padding:14px 8px;text-align:center">
+          <div style="font-family:'Sora',sans-serif;font-size:1.3rem;font-weight:700;color:var(--orange)">R$13,49</div>
+          <div style="font-size:.68rem;color:var(--txt3)">por venda Premium</div>
+        </div>
+        <div style="background:rgba(255,159,67,.06);border:1px solid rgba(255,159,67,.12);border-radius:10px;padding:14px 8px;text-align:center">
+          <div style="font-family:'Sora',sans-serif;font-size:1.3rem;font-weight:700;color:var(--orange)">R$17,99</div>
+          <div style="font-size:.68rem;color:var(--txt3)">por venda Família</div>
+        </div>
+      </div>
+      <p style="font-size:.78rem;color:var(--txt3)">Ex: 1 venda Premium = R$13,49 x 3 meses = <strong style="color:var(--orange)">R$40,47 no total</strong></p>
+    </div>
+
+    <div class="cw">
+      <div class="cw-label">Criativo pra recrutar afiliados</div>
+      <div class="scale-wrap" style="width:${1080*scale}px;height:${1080*scale}px">
+        <div style="transform:scale(${scale});transform-origin:top left;width:1080px;height:1080px">${C.afiliado}</div>
+      </div>
+      <div class="dl-row">
+        <button class="dl-btn" onclick="dlCreative('afiliado','PlayMax_Afiliado')">📥 Baixar PNG</button>
+      </div>
+      <div class="cap-box"><button class="cc" onclick="copEl(this)">Copiar</button><p>${afItem.cap}</p></div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:18px;margin-top:16px">
+      <h3 style="font-size:.95rem;margin-bottom:12px">📋 Mensagem pronta pra recrutar afiliados</h3>
+      <div class="cap-box"><button class="cc" onclick="copEl(this)">Copiar</button>
+        <p>Fala! Tenho uma proposta pra você ganhar uma renda extra 💰
+
+Eu trabalho com a PlayMax TV — um serviço de TV por internet com mais de 2.300 canais, filmes e séries.
+
+Funciona assim:
+✅ Você divulga o link que eu te dou
+✅ Cada pessoa que assinar pelo seu link, você ganha 15% de comissão
+✅ A comissão é paga nos 3 primeiros meses do cliente
+
+Exemplo prático:
+🔥 1 venda do plano Premium (R$89,90) = R$13,49/mês x 3 meses = R$40,47
+
+Se fizer 10 vendas no mês: R$404,70 de renda extra!
+
+Eu forneço todo o material de divulgação — posts, legendas, tudo pronto.
+
+Quer participar? Me chama que eu te passo seu link exclusivo! 📲</p>
+      </div>
+    </div>`;
+
+  document.getElementById('afiliadoContent').innerHTML = html;
+}
+
+// ===== DOWNLOAD =====
+async function dlCreative(key, filename) {
+  const btn = event.target.closest('.dl-btn') || event.target;
+  btn.classList.add('busy');
+  const orig = btn.innerHTML;
+  btn.innerHTML = '⏳ Gerando...';
+
+  const area = document.getElementById('renderArea');
+  area.innerHTML = C[key];
+  const el = area.firstElementChild;
+
+  try {
+    const canvas = await html2canvas(el, {
+      width:1080, height:1080, scale:1, backgroundColor:'#06060a', useCORS:true, logging:false
+    });
+    const link = document.createElement('a');
+    link.download = filename + '.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  } catch(e) { console.error(e); }
+
+  area.innerHTML = '';
+  btn.classList.remove('busy');
+  btn.innerHTML = orig;
+}
+
+// ===== COPY =====
+function copEl(btn) {
+  const t = btn.parentElement.querySelector('p').textContent;
+  navigator.clipboard.writeText(t).then(() => { btn.textContent='Copiado!'; setTimeout(()=>btn.textContent='Copiar',2000); });
+}
+function copScript(btn) {
+  const t = btn.parentElement.querySelector('.script').textContent;
+  navigator.clipboard.writeText(t).then(() => { btn.textContent='Copiado!'; setTimeout(()=>btn.textContent='Copiar roteiro',2000); });
+}
+function copTxt(btn, b64) {
+  const t = decodeURIComponent(escape(atob(b64)));
+  navigator.clipboard.writeText(t).then(() => { btn.textContent='✅ Copiado!'; setTimeout(()=>btn.textContent='📋 Copiar legenda',2000); });
+}
+
+// ===== TABS =====
+function tab(id, btn) {
+  document.querySelectorAll('.tc').forEach(t => t.classList.remove('on'));
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+  document.getElementById('tc-'+id).classList.add('on');
+  btn.classList.add('active');
+}
+
+// ===== BOOT =====
+renderCalendar();
+renderPosts();
+renderStories();
+renderReels();
+renderAfiliado();
+</script>
+</body>
+</html>
