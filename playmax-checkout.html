@@ -215,7 +215,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);min-h
 <div class="bg-fx"></div>
 
 <div class="page">
-  <a href="playmax-tv-landing.html" class="back">← Voltar aos planos</a>
+  <a href="index.html" class="back">← Voltar aos planos</a>
   <div class="checkout" id="checkout"></div>
 </div>
 
@@ -247,7 +247,8 @@ let state = {
   delivery: null,
   address: '',
   name: '',
-  currentStep: 1
+  currentStep: 1,
+  ref: null
 };
 
 // ====== PIX BR CODE ======
@@ -334,7 +335,7 @@ function renderStep2() {
       <div id="upsellSection"></div>
       <button class="btn-continue" id="btnStep2" disabled onclick="goToStep3()">Continuar para pagamento →</button>
     </div>
-    <div style="padding:0 24px 24px"><a href="playmax-tv-landing.html" class="btn-secondary" style="margin-top:8px">← Trocar de plano</a></div>
+    <div style="padding:0 24px 24px"><a href="index.html" class="btn-secondary" style="margin-top:8px">← Trocar de plano</a></div>
   `;
 }
 
@@ -480,6 +481,7 @@ function goToStep3() {
     waMsg += `👤 Nome: ${state.name}\n`;
   }
   waMsg += `\nPode ativar minha lista?`;
+  if (state.ref) waMsg += `\n\n🤝 Indicado por: ${state.ref}`;
 
   const c = document.getElementById('checkout');
   c.innerHTML = `
@@ -559,10 +561,11 @@ function startTimer(seconds) {
 function init() {
   const params = new URLSearchParams(window.location.search);
   const planKey = params.get('plano');
+  state.ref = params.get('ref');
   const c = document.getElementById('checkout');
 
   if (!planKey || !PLANS[planKey]) {
-    c.innerHTML = `<div class="no-plan"><h2>Nenhum plano selecionado</h2><p>Volte e escolha o plano ideal pra você.</p><a href="playmax-tv-landing.html">Ver Planos</a></div>`;
+    c.innerHTML = `<div class="no-plan"><h2>Nenhum plano selecionado</h2><p>Volte e escolha o plano ideal pra você.</p><a href="index.html">Ver Planos</a></div>`;
     return;
   }
 
